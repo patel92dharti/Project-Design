@@ -1,0 +1,82 @@
+{% extends 'header.html'%}
+{% block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Profile</title>
+    
+</head>
+<body>
+    <center>
+        <h1>Change Profile</h1>
+
+        {% if msg%}
+        <b style="color: blue;">{{msg}}</b>
+        {% endif %}
+        <form action="{% url 'profile' %}" method="post" name="signup" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>First Name</td>
+                    <td><input type="text" name="fname" id="" value="{{user.fname}}"></td>
+                </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td><input type="text" name="lname" id="" value="{{user.lname}}"></td>
+                </tr>
+                <tr>
+                    <td>Mobile</td>
+                    <td><input type="text" name="mobile" id="" value="{{user.mobile}}"></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><input type="text" name="email" id="" value="{{user.email}}" readonly></td>
+                </tr>
+            
+                <tr>
+                    <td>Gender</td>
+                    <td>
+                    {%if user.gender == "male"%}
+                    <input type="radio" name="gender" value="male" checked>Male
+                        <input type="radio" name="gender" value="female">Female
+                    
+                    {% elif user.gender == "female"%}
+                    <input type="radio" name="gender" value="male">Male
+                        <input type="radio" name="gender" value="female" checked>Female
+                   
+                    {% else %}
+                        <input type="radio" name="gender" value="male">Male
+                        <input type="radio" name="gender" value="female">Female
+                    
+                    {%endif%}
+                </td>
+                </tr>
+                <tr>
+                    <td>Location</td>
+                    <td><input type="text" name="location" value="{{user.location}}"></td>
+                </tr>
+                <tr>
+                    <td>Remarks</td>
+                    <td><textarea name="remarks" id="" cols="22" rows="3" >{{user.remarks}}</textarea></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <img src="{{user.profile_pic.url}}" width="100px" height="100px">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Profile Pic</td>
+                    <td><input type="file" name="profile_pic" id=""></td>
+                </tr>
+                <tr>
+                    <td align="center" colspan="2"><input type="submit"  class="btn btn-success" name="signup" value="Update Profile"></td>
+                </tr>
+            </table>
+        </form>
+    </center>   
+</body>
+</html>
+{% endblock %}
